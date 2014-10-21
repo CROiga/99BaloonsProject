@@ -35,6 +35,11 @@
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ysr-4j-oFt">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                 <items>
+                                    <barButtonItem title="Prev" id="E6Y-Go-DI2">
+                                        <connections>
+                                            <action selector="prevBaloonButtonPressed:" destination="vXZ-lx-hvc" id="NUv-TV-S4u"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="L1G-xL-ad8"/>
                                     <barButtonItem title="Next" id="B85-99-rre">
                                         <connections>
