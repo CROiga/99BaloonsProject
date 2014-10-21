@@ -17,7 +17,7 @@ class ViewController: UIViewController {
 
     var baloons:[Baloon] = []                                            // empty baloons array that will hold our baloons
     var currentIndex = 0                                                 // first instance on the screen index
-    var currentNumber = 0                                                // iniciramo varijablu koja ćemo iskoristiti u randomizaciji broja da se slike ne ponavljaju 2 puta za redom
+    var currentNumber = 0                                                // initialization of variable CurrentNumber which we'll use to avoid the possibility that the same image is assigned twice in a row
     
     
     override func viewDidLoad() {
@@ -34,7 +34,7 @@ class ViewController: UIViewController {
     
     @IBAction func prevBaloonButtonPressed(sender: UIBarButtonItem) {     // Our Previous button pressed action
         
-        var x: Int                                                        // uvodimo varijablu x da izbjegnemo da currentIndex bude manji od 0
+        var x: Int                                                        // variable x serves us so we avoid that currentIndex gets less than 0
         
 //        if currentIndex == 0 {                                          // we can use IF LOOP or SWITCH STATEMENT to do the same thing
 //           x = 0
@@ -55,19 +55,19 @@ class ViewController: UIViewController {
             x = 2
         }
         
-        let baloon = baloons[currentIndex - x]                            // svaki put kad pritisnemo dugme, pristupamo balonu s trenutnim indexom i prikazujemo ga na ekranu
+        let baloon = baloons[currentIndex - x]                            // by pressing the button, we get access  to baloon instance with current index (minus x)
         
-        numberBaloonsLabel.text = "\(baloon.number + 1) baloon"           // pristupamo broju trenutne instance dodajemo 1 (da izbjegnemo 0) i ispisujemo ga
-        randomBaloonImageView.image = baloon.image                        // pristupamo slici trenutne instance i pokazujemo je
+        numberBaloonsLabel.text = "\(baloon.number + 1) baloon"           // number property of current instance (we add 1 so instead 0-98 we get 1-99) and print out on the screen
+        randomBaloonImageView.image = baloon.image                        // image property of current instance becomes the background image
         
         if currentIndex > 1 {                                             // if statement to check if currentIndex is greater than 1 (start of Array)
-            UIView.transitionWithView(self.view, duration: 1, options: UIViewAnimationOptions.TransitionFlipFromRight, animations: {  // animiramo tranziciju između slika
+            UIView.transitionWithView(self.view, duration: 1, options: UIViewAnimationOptions.TransitionFlipFromRight, animations: {  // animated transition only if it's not begining of array
             }, completion: {(finished:Bool) -> () in })
             
-            currentIndex -= 1                                             // ako je veći od 1 umanjujemo index za 1, tj. prelazimo na prijašnju instancu balona
+            currentIndex -= 1                                             // if currentIndex is greater than 1, we dimminish the index for 1, (going to lower baloon index)
         }
         else {
-            currentIndex = 1                                              // ako nije veći od 1, onda dodjeljujemo currentIndex vrijednost 1
+            currentIndex = 1                                              // if is equal to 1, it stays 1 (start of the array)
         }
         
     }
@@ -77,38 +77,38 @@ class ViewController: UIViewController {
         
         
         
-        let baloon = baloons[currentIndex]                                // svaki put kad pritisnemo dugme, pristupamo balonu s trenutnim indexom i prikazujemo ga na ekranu
+        let baloon = baloons[currentIndex]                                // by pressing the button, we get access  to baloon instance with current index (minus x)
         
-        numberBaloonsLabel.text = "\(baloon.number + 1) baloon"           // pristupamo broju trenutne instance dodajemo 1 (da izbjegnemo 0) i ispisujemo ga
-        randomBaloonImageView.image = baloon.image                        // pristupamo slici trenutne instance i pokazujemo je
+        numberBaloonsLabel.text = "\(baloon.number + 1) baloon"           // number property of current instance (we add 1 so instead 0-98 we get 1-99) and print out on the screen
+        randomBaloonImageView.image = baloon.image                        // image property of current instance becomes the background image
         
         if currentIndex < 98 {                                            // if statement to check if currentIndex is less than 98 (end of Array)
-            UIView.transitionWithView(self.view, duration: 1, options: UIViewAnimationOptions.TransitionFlipFromLeft, animations: {  // animiramo tranziciju između slika
+            UIView.transitionWithView(self.view, duration: 1, options: UIViewAnimationOptions.TransitionFlipFromLeft, animations: {  // animated transition only if not end of array
             }, completion: {(finished:Bool) -> () in })
             
-            currentIndex += 1                                             // ako je manji od 98 uvećavamo index za 1, tj. prelazimo na sljedeću instancu balona
+            currentIndex += 1                                             // if currentIndex is less than 98, we add 1 to index, (going to next baloon index)
         }
         else {
-            currentIndex = 98                                              // ako nije manji od 98, onda ga ostavljamo da stoji na 98
+            currentIndex = 98                                              // if is equal to 98, it stays 98 (end of the array)
         }
     }
     
     // helper function that should normaly go to viewDidLoad, but this make it clean, we will call the function in viewDidLoad
     
     func createBaloons () {                                               // create 99 baloons function
-        for var baloonCount = 0; baloonCount <= 98; baloonCount++ {       // for loop that adds 1 to balooncount every time
+        for var baloonCount = 0; baloonCount <= 98; baloonCount++ {       // for loop that adds 1 to baloonCount every time
             var baloon = Baloon()                                         // creating variable that will be an instance of baloon (do this 99 times)
-            baloon.number = baloonCount                                   // each baloon instance getting it's number from 1 to 99
+            baloon.number = baloonCount                                   // each baloon instance getting it's number from 0 to 98
             
 
-            var randomNumber: Int                                         // inicijaliziramo varijablu randomNumber
+            var randomNumber: Int                                         // initialisation of variable randomNumber
             
             do {                                                          // DO randomNumber WHILE
                     randomNumber = Int(arc4random_uniform(UInt32(4)))     // creating random number that is used for switch statement (0-3)
-            } while currentNumber == randomNumber                         // (sve dok je currentNumber jednak randomNumber)
+            } while currentNumber == randomNumber                         // (while currentNumber is equal to randomNumber)
             
-            currentNumber = randomNumber                                  // kad uvijet postane neistinit, tj. dobijemo broj drugačiji od prijašnjeg...
-                                                                          //... currentNumber poprima vrijednost randomNumber i tako nema šanse da se index ponovi
+            currentNumber = randomNumber                                  // when the statement is no longer true, and we get a different number than before
+                                                                          //... currentNumber gets the value of randomNumber and there is no repetition of numbers
             
 
             
